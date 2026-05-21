@@ -5,12 +5,14 @@ import { __DEV__ } from "@/utils/envValue";
 import Swal from "sweetalert2";
 import Image from "next/image";
 import Link from "next/link";
+import { FadeLoader, SyncLoader } from "react-spinners";
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     useEffect(() => {
         console.log({ username, password })
@@ -29,20 +31,23 @@ export default function LoginPage() {
             return;
         }
 
-        setIsLoading(true);
         try {
+            setIsLoading(true);
             const response = await login(username, password)
             __DEV__ && console.log("HASIL RESPONSE LOGIN BERHASIL : ", response)
-            Swal.fire({
-                icon: "success",
-                title: "Success",
-                text: "Login Berhasil",
-                confirmButtonColor: "#10b981"
-            }).then((confirm) => {
-                if (confirm.isConfirmed) {
-                    // Link("/")
-                }
-            })
+            await delay(3000)
+            if (response.status === 200) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: "Login Berhasil",
+                    confirmButtonColor: "#10b981"
+                }).then((confirm) => {
+                    if (confirm.isConfirmed) {
+                        // Link("/")
+                    }
+                })
+            }
         } catch (e: any) {
 
             // Jika Axios melempar error HTTP 401 Unauthorized
@@ -252,11 +257,17 @@ export default function LoginPage() {
                         >
                             {isLoading ? (
                                 <>
-                                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    {/* <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                    </svg>
-                                    <span>Signing In...</span>
+                                    </svg>}
+                                    <span>Signing In...</span> */}
+                                    <SyncLoader
+                                        color="#ffffff"
+                                        size={5}
+                                        speedMultiplier={0.75}
+                                    />
+                                    <span>Please Wait...</span>
                                 </>
                             ) : (
                                 <span>Sign In</span>
