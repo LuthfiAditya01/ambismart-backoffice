@@ -4,6 +4,7 @@ import { login } from "@/api/authCollection";
 import { __DEV__ } from "@/utils/envValue";
 import Swal from "sweetalert2";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function LoginPage() {
     const [username, setUsername] = useState('');
@@ -37,6 +38,10 @@ export default function LoginPage() {
                 title: "Success",
                 text: "Login Berhasil",
                 confirmButtonColor: "#10b981"
+            }).then((confirm) => {
+                if (confirm.isConfirmed) {
+                    // Link("/")
+                }
             })
         } catch (e: any) {
 
