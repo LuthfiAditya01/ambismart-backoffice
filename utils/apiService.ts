@@ -5,6 +5,7 @@ export function api(token?: string) {
     if (token) {
         const instance = axios.create({
             baseURL: API_BASE_URL,
+            withCredentials: true,
             headers: {
                 Accept: 'application/json',
                 Authorization: `Bearer ${token}`,
@@ -24,6 +25,7 @@ export function api(token?: string) {
 
     return axios.create({
         baseURL: API_BASE_URL,
+        withCredentials: true,
         headers: {
             'Content-Type': 'application/json',
         },

@@ -6,8 +6,10 @@ import Swal from "sweetalert2";
 import Image from "next/image";
 import Link from "next/link";
 import { FadeLoader, SyncLoader } from "react-spinners";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+    const router = useRouter();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -35,7 +37,6 @@ export default function LoginPage() {
             setIsLoading(true);
             const response = await login(username, password)
             __DEV__ && console.log("HASIL RESPONSE LOGIN BERHASIL : ", response)
-            await delay(3000)
             if (response.status === 200) {
                 Swal.fire({
                     icon: "success",
@@ -45,6 +46,7 @@ export default function LoginPage() {
                 }).then((confirm) => {
                     if (confirm.isConfirmed) {
                         // Link("/")
+                        router.push("/")
                     }
                 })
             }
