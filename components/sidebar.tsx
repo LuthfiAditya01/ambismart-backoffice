@@ -86,7 +86,7 @@ export default function Sidebar({ children }: { children: ReactNode }) {
 							</div>
 							<button
 								onClick={handleLogout}
-								className="rounded-full border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 transition hover:border-red-300 hover:bg-red-100 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-200"
+								className="rounded-full border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700 transition hover:text-red-700 cursor-pointer hover:border-red-300 hover:bg-red-100 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-200"
 								aria-label="Logout"
 							>
 								Logout
